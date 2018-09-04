@@ -1,7 +1,5 @@
-import random, string
+import random, string, csv
 from datetime import datetime
-import csv
-
 	
 def gen_password():
 	pwlist = (
@@ -19,16 +17,16 @@ def gen_password():
 	random.shuffle(pwlist)
 	return ''.join(pwlist)
 
+
 def gen_pin():
 	return random.randint(1000, 9999)
+
 
 staff_file_path = input("Staff list file location (*.csv): ")
 if not staff_file_path:
 	staff_file_path = "staff_list.csv"
 
-# TODO Ask for school number
 school_num = int(input("School Number: "))
-# TODO Ask for start/stop of extension number
 start_num = int(input("extension start: "))
 if not start_num:
 	start_num = 800
@@ -38,11 +36,6 @@ with open(staff_file_path) as file:
 	#Staff list should have First, Last names, email
 	staff_list = csv.DictReader(file, delimiter=',')
 	for idx, row in enumerate(staff_list):
-		# Add row to dict, with extension number, AuthID, AuthPassword
-		#	VM Pin, Web Meeting Auth password, DeskphoneWebPass, SrvcAccessPwd
-		# Pin 4 digits
-		# Password 10 alphanumeric
-		
 		staff_extensions.append(
 			[
 				str(school_num) + "" + str(start_num+idx), 
